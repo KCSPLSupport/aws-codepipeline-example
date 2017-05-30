@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update -y
+      - apt-get install rpm -y
+  build:
+    commands:
+      - ./rpm.sh
+      - ls -lha
+      - cat build.log
+  post_build:
+    commands:
+      - mkdir -p RPMS/x86_64/
+      - cp /root/rpmbuild/RPMS/x86_64/example-website*.x86_64.rpm ./RPMS/x86_64/
+artifacts:
+  files:
+    - '**/*'
